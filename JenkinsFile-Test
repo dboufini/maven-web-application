@@ -14,15 +14,15 @@ node{
         sh "${mavenHome}/bin/mvn deploy"
     }
     stage('5Deploy_uat'){
-        deploy adapters: [tomcat9(credentialsId: 'github-credential', path: '', url: 'http://44.198.150.23:8080')], contextPath: null, war: 'target/*war'
+        deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://44.198.150.23:8080')], contextPath: null, war: 'target/*war'
     }
-    stage('6Approval'){
+    /*stage('6Approval'){
         timeout(time:9,unit:'HOURS'){
             input message: 'Please review and approve'
         }
-    }
-    //stage('7Deploy_prod'){}
+    } */
+    stage('7Deploy_prod'){}
     stage('8Notification'){
-        emailext body: 'You sexy future engineer', recipientProviders: [developers()], subject: 'Pipeline Script - Completed ;)', to: 'dboufini@hotmail'
+        emailext body: 'You sexy future engineer', subject: 'Pipeline Script - Completed', to: 'dboufini@hotmail.com'
     }
 }
