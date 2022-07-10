@@ -10,9 +10,9 @@ node{
     stage('3CodeQuality'){
         sh "${mavenHome}/bin/mvn sonar:sonar"
     }
-    stage('4UploadArtifacts'){
+    /*stage('4UploadArtifacts'){
         sh "${mavenHome}/bin/mvn deploy"
-    }
+    }*/
     stage('5Deploy_uat'){
         deploy adapters: [tomcat9(credentialsId: 'tomcat-credentials', path: '', url: 'http://44.198.150.23:8080')], contextPath: null, war: 'target/*war'
     }
